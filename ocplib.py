@@ -23,7 +23,9 @@ import rgbColor
 #
 
 # Load the shared C library using ctype mechanism and the directory path is always local
-ocplib = npct.load_library("ocplib", ".") 
+ocplib = npct.load_library("ocplib", "c_version") 
+# Load the shared CPP library using ctype mechanism and the directory path is always local
+#ocplib = npct.load_library("ocplib", "cpp_version") 
 
 array_1d_uint8 = npct.ndpointer(dtype=np.uint8, ndim=1, flags='C_CONTIGUOUS')
 array_2d_uint8 = npct.ndpointer(dtype=np.uint8, ndim=2, flags='C_CONTIGUOUS')
