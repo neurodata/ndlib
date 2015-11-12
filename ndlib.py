@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import ctypes as cp
 import numpy as np
 import numpy.ctypeslib as npct
-import os
 import rgbColor
 
 #
@@ -23,7 +23,8 @@ import rgbColor
 #
 
 # Load the shared C library using ctype mechanism and the directory path is always local
-ocplib = npct.load_library("ocplib", "c_version") 
+BASE_PATH = os.path.dirname(__file__)
+ocplib = npct.load_library("ocplib", BASE_PATH+"/c_version") 
 # Load the shared CPP library using ctype mechanism and the directory path is always local
 #ocplib = npct.load_library("ocplib", "cpp_version") 
 
