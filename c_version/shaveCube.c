@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void shaveCube( uint32_t * data, int dataSize, int * dims, int annid, uint32_t * offset,  uint32_t locations[][3], int locationsSize, uint32_t exceptions[][3], int exceptionIndex, uint32_t zeroed[][3], int zeroedIndex )
 {

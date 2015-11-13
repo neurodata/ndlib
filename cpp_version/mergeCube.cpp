@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void mergeCube( uint32_t * data, int * dims, int newid, int oldid )
 {

@@ -6,7 +6,7 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void main()
 {

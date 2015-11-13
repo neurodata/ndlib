@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 // Determine the annotation value at the next level of the hierarchy from a 2x2
 

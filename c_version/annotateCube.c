@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 int annotateCube( uint32_t * data, int dataSize, int * dims, int annid, uint32_t * offset,  uint32_t locations[][3], int locationsSize, char conflictopt, uint32_t exceptions[][3] )
 {

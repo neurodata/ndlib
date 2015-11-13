@@ -22,7 +22,7 @@
 
 #include<stdint.h>
 #include<omp.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void recolorCubeOMP ( uint32_t * cutout, int xdim, int ydim, uint32_t * imagemap, uint32_t * rgbColor)
 {

@@ -23,7 +23,7 @@
 #include<stdint.h>
 #include<math.h>
 #include<omp.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void zoomOutData( uint32_t * olddata, uint32_t * newdata, int * dims, int factor )
 {

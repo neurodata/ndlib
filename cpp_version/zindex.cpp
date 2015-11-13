@@ -20,7 +20,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 // Generate morton order from XYZ coordinates
 

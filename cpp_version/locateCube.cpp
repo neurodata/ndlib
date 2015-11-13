@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void locateCube( uint64_t locs[][4], int locsSize, uint32_t locations[][3], int locationsSize, int * dims )
 {

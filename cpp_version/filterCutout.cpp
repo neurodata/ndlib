@@ -23,7 +23,7 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<stdbool.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void filterCutout( uint32_t * cutout, int cutoutsize, uint32_t * filterlist, int listsize)
 {

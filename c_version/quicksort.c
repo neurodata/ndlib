@@ -21,7 +21,7 @@
 
 #include<stdint.h>
 #include<stdlib.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 // cmpFunc for QuickSort
 

@@ -17,7 +17,7 @@
 #include<stdint.h>
 #include<stdbool.h>
 #include<omp.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void filterCutoutOMP ( uint32_t * cutout, int cutoutsize, uint32_t * filterlist, int listsize)
 {

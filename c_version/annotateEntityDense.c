@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void annotateEntityDense( uint32_t * data, int * dims, int entityid)
 {

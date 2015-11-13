@@ -22,7 +22,7 @@
 
 #include<stdint.h>
 #include<stdlib.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 int cmpFunc32 ( const void * pa, const void * pb )
 {

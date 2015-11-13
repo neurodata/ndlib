@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void shaveDense( uint32_t * data, uint32_t * shavedata ,int * dims )
 {

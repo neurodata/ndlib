@@ -2,10 +2,10 @@
 
 # Make file for Unix Systems
 
-all: clean ocplib.so
+all: clean ndlib.so
 
-ocplib.so : filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o
-	g++ -shared -fopenmp -O3 -o ocplib.so filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o -I .
+ndlib.so : filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o
+	g++ -shared -fopenmp -O3 -o ndlib.so filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o -I .
 
 filterCutout.o : filterCutout.cpp
 	g++ -c -fPIC -O3 filterCutout.cpp -o filterCutout.o -I .
@@ -56,4 +56,4 @@ test : clean testmain.c
 	g++ -ggdb testmain.c quicksort.c -o test -I .
 
 clean :
-	-rm -vf ocplib.so zindex.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o filterCutout.o filterCutoutOMP.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o test
+	-rm -vf ndlib.so zindex.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o filterCutout.o filterCutoutOMP.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o test

@@ -21,7 +21,7 @@
  */
 
 #include<stdint.h>
-#include<ocplib.h>
+#include<ndlib.h>
 
 void isotropicBuild32( uint32_t * data1, uint32_t * data2, uint32_t * newdata, int * dims )
 {
