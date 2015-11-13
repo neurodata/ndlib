@@ -1,4 +1,4 @@
-### Ctype accleration for NeuroData
+### Common Types and Ctype acclerations for NeuroData
 
 This library is used as a module in open-connectome, ocptilecache and ocpblaze.
 
