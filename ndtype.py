@@ -62,6 +62,7 @@ READONLY_FALSE = 0
 # SCALING OPTIONS
 ZSLICES = 0
 ISOTROPIC = 1
+ND_scalingint = {'zslices':ZSLICES, 'xyz':ISOTROPIC}
 
 # Exception Values
 EXCEPTION_TRUE = 1
