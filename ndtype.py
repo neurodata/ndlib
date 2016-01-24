@@ -27,6 +27,7 @@ FLOAT32 = 'float32'
 MYSQL = 'MySQL'
 CASSANDRA = 'Cassandra'
 RIAK = 'riak'
+DYNAMODB = 'dynamodb'
 
 # ND Version
 ND_VERSION = '0.7'
