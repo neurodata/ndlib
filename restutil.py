@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
 import urllib2
 
 def getURL(url):
@@ -22,6 +23,17 @@ def getURL(url):
     resp = urllib2.urlopen(req)
   except urllib2.URLError, e:
     print "Failed URL {}. Error {}".format(url, e)
+
+def getURLTimed(url):
+  """Fetch a URL"""
+
+  try:
+    req = urllib2.Request(url)
+    start = time.time()
+    resp = urllib2.urlopen(req)
+    print time.time()-start
+  except urllib2.URLError, e:
+    print "Failed", time.time()-start
 
 def putURL(url, data):
   """Post a URL"""
