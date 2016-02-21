@@ -15,6 +15,7 @@
 import time
 import urllib2
 
+
 def getURL(url):
   """Fetch a URL"""
 
@@ -23,6 +24,9 @@ def getURL(url):
     resp = urllib2.urlopen(req)
   except urllib2.URLError, e:
     print "Failed URL {}. Error {}".format(url, e)
+
+  return resp.read()
+
 
 def getURLTimed(url):
   """Fetch a URL"""
@@ -35,6 +39,7 @@ def getURLTimed(url):
   except urllib2.URLError, e:
     print "Failed", time.time()-start
 
+
 def putURL(url, data):
   """Post a URL"""
 
@@ -43,3 +48,15 @@ def putURL(url, data):
     resp = urllib2.urlopen(req)
   except urllib2.URLError, e:
     print "Failed URL {}. Error {}".format(url, e)
+
+
+def generateURLBlosc(server_name, token_name, channel_list, res_value, range_args):
+  """Generate a URL for blosc"""
+
+  try:
+    url = "http://{}/ca/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
+  except Exception, e:
+    print "Error in arguments. {}".format(e)
+    return ""
+
+  return url
