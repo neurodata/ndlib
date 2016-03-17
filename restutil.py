@@ -25,7 +25,7 @@ def getURL(url):
     return resp.read()
   except urllib2.URLError, e:
     print "Failed URL {}. Error {}".format(url, e)
-    return
+    raise e
 
 
 def getURLTimed(url):
