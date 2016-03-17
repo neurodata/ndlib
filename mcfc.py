@@ -14,10 +14,11 @@
 
 import numpy as np
 from PIL import Image
+from PIL import ImageEnhance
 
-from ndwserror import NDWSError
+from ndliberror import NDLibError
 import logging
-logger=logging.getLogger("neurodata")
+logger = logging.getLogger("neurodata")
 
 def mcfcPNG (cutout, colors, enhancement=4.0):
   """False color a multichannel cutout.  Takes a 3-d array and returns a 2-d array 
@@ -54,7 +55,7 @@ def mcfcPNG (cutout, colors, enhancement=4.0):
       combined_cutout +=  np.left_shift(data32,16) 
     else:
       logger.warning ("Unsupported color requested: {}".format(color[i]))
-      raise NDWSError ("Unsupported color requested: {}".format(color[i]))
+      raise NDLIBError ("Unsupported color requested: {}".format(color[i]))
 
   # Set the alpha channel only for nonzero pixels
   # combined_cutout = np.where (combined_cutout > 0, combined_cutout + 0xFF000000, 0)
@@ -62,7 +63,6 @@ def mcfcPNG (cutout, colors, enhancement=4.0):
   outimage = Image.frombuffer ( 'RGBA', cutout.shape[1:][::-1], combined_cutout.flatten(), 'raw', 'RGBA', 0, 1 )
   
   # Enhance the image
-  from PIL import ImageEnhance
   #enhancer = ImageEnhance.Brightness(outimage)
   #outimage = enhancer.enhance(enhancement)
   
