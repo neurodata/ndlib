@@ -16,7 +16,7 @@ import numpy as np
 from PIL import Image
 from PIL import ImageEnhance
 
-from ndliberror import NDLibError
+from ndliberror import NDLIBError
 import logging
 logger = logging.getLogger("neurodata")
 
