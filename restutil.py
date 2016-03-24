@@ -72,3 +72,15 @@ def generateURLBlosc(server_name, token_name, channel_list, res_value, range_arg
     return ""
 
   return url
+
+
+def generateURLBlaze(server_name, token_name, channel_list, res_value, range_args):
+  """Generate a URL for blosc"""
+
+  try:
+    url = "http://{}/blaze/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
+  except Exception, e:
+    print "Error in arguments. {}".format(e)
+    return ""
+
+  return url
