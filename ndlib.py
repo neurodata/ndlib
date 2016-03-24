@@ -36,6 +36,7 @@ array_3d_uint16 = npct.ndpointer(dtype=np.uint16, ndim=3, flags='C_CONTIGUOUS')
 array_1d_uint32 = npct.ndpointer(dtype=np.uint32, ndim=1, flags='C_CONTIGUOUS')
 array_2d_uint32 = npct.ndpointer(dtype=np.uint32, ndim=2, flags='C_CONTIGUOUS')
 array_3d_uint32 = npct.ndpointer(dtype=np.uint32, ndim=3, flags='C_CONTIGUOUS')
+array_4d_uint32 = npct.ndpointer(dtype=np.uint32, ndim=4, flags='C_CONTIGUOUS') 
 array_1d_uint64 = npct.ndpointer(dtype=np.uint64, ndim=1, flags='C_CONTIGUOUS')
 array_2d_uint64 = npct.ndpointer(dtype=np.uint64, ndim=2, flags='C_CONTIGUOUS')
 array_2d_float32 = npct.ndpointer(dtype=np.float32, ndim=2, flags='C_CONTIGUOUS')
@@ -57,6 +58,7 @@ ndlib.annotateEntityDense.argtypes = [ array_3d_uint32, cp.POINTER(cp.c_int), cp
 ndlib.shaveDense.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
 ndlib.exceptionDense.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
 ndlib.overwriteDense.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
+ndlib.overwriteMerge.argtypes = [ array_4d_uint32, array_4d_uint32, cp.c_int ]
 ndlib.zoomOutData.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
 ndlib.zoomOutDataOMP.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
 ndlib.zoomInData.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
@@ -87,6 +89,7 @@ ndlib.annotateEntityDense.restype = None
 ndlib.shaveDense.restype = None
 ndlib.exceptionDense.restype = None
 ndlib.overwriteDense.restype = None
+ocplib.overwriteMerge.restype = None
 ndlib.zoomOutData.restype = None
 ndlib.zoomOutDataOMP.restype = None
 ndlib.zoomInData.restype = None
@@ -280,6 +283,16 @@ def overwriteDense_ctype ( data, annodata ):
   dims = [ i for i in data.shape ]
   ndlib.overwriteDense ( data, annodata, (cp.c_int * len(dims))(*dims) )
   return ( data.astype(orginal_dtype, copy=False) )
+
+
+def overwriteMerge_ctype( data1, data2 ):
+  """Blaze Overwrite"""
+  
+  from functools import reduce
+  from operator import mul
+  dim = cp.c_int(reduce(mul, data1.shape))
+  ndlib.overwriteMerge(data1, data2, dim)
+  return data1
 
 
 def zoomOutData_ctype ( olddata, newdata, factor ):

@@ -2,8 +2,8 @@
 
 all: clean ndlib.so
 
-ndlib.so : filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o addData.o unique.o
-	gcc-5 -shared -fopenmp -O3 -o ndlib.so filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o addData.o unique.o -I .
+ndlib.so : filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o overwriteMerge.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o addData.o unique.o
+	gcc-5 -shared -fopenmp -O3 -o ndlib.so filterCutout.o filterCutoutOMP.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o overwriteMerge.o zindex.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o addData.o unique.o -I .
 
 filterCutout.o : filterCutout.c
 	gcc-5 -c -fPIC -O3 filterCutout.c -o filterCutout.o -I .
@@ -35,6 +35,9 @@ exceptionDense.o : exceptionDense.c
 overwriteDense.o : overwriteDense.c
 	gcc-5 -c -fPIC -O3 overwriteDense.c -o overwriteDense.o -I .
 
+overwriteMerge.o : overwriteMerge.c
+	gcc-5 -c -fPIC -O3 overwriteMerge.c -o overwriteMerge.o -I .
+
 zindex.o : zindex.c
 	gcc-5 -c -fPIC -O3 zindex.c -o zindex.o -I .
 
@@ -60,4 +63,4 @@ test : clean testmain.c
 	gcc-5 -ggdb testmain.c quicksort.c -o test -I .
 
 clean :
-	-rm -vf ndlib.so zindex.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o filterCutout.o filterCutoutOMP.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o addData.o unique.o test
+	-rm -vf ndlib.so zindex.o locateCube.o annotateCube.o shaveCube.o mergeCube.o annotateEntityDense.o shaveDense.o exceptionDense.o overwriteDense.o overwriteMerge.o filterCutout.o filterCutoutOMP.o recolorCube.o zoomData.o quicksort.o isotropicBuild.o addData.o unique.o test
