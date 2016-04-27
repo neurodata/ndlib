@@ -64,7 +64,7 @@ DYNAMODB = 'DynamoDB'
 REDIS = 'Redis'
 
 # ND Version
-ND_VERSION = '0.7'
+ND_VERSION = '1.0'
 SCHEMA_VERSION = '0.7'
 
 # Propagated Values
