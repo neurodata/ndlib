@@ -5,14 +5,14 @@ This library is used as a module in neurodata web-services, ndtilecache and ndbl
 #### Makefile help
 
 * Make all implementation
-  ```sh
-  make all
-  ```
+```console
+make all
+```
 * Make test for testing the C implementations
-  ```sh
-  make test
-  ```
+```console
+make test
+```
 * Removes all compiled files
-  ```sh
-  make clean
-  ```
+```console
+make clean
+```
