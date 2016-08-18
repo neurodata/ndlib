@@ -51,7 +51,8 @@ ndlib.locateCube.argtypes = [ array_2d_uint64, cp.c_int, array_2d_uint32, cp.c_i
 ndlib.annotateCube.argtypes = [ array_1d_uint32, cp.c_int, cp.POINTER(cp.c_int), cp.c_int, array_1d_uint32, array_2d_uint32, cp.c_int, cp.c_char, array_2d_uint32 ]
 ndlib.XYZMorton.argtypes = [ array_1d_uint64 ]
 ndlib.MortonXYZ.argtypes = [ npct.ctypes.c_int64 , array_1d_uint64 ]
-ndlib.recolorCubeOMP.argtypes = [ array_2d_uint32, cp.c_int, cp.c_int, array_2d_uint32, array_1d_uint32 ]
+ndlib.recolorCubeOMP32.argtypes = [ array_2d_uint32, cp.c_int, cp.c_int, array_2d_uint32, array_1d_uint32 ]
+ndlib.recolorCubeOMP64.argtypes = [ array_2d_uint64, cp.c_int, cp.c_int, array_2d_uint64, array_1d_uint64 ]
 ndlib.quicksort.argtypes = [ array_2d_uint64, cp.c_int ]
 ndlib.shaveCube.argtypes = [ array_1d_uint32, cp.c_int, cp.POINTER(cp.c_int), cp.c_int, array_1d_uint32, array_2d_uint32, cp.c_int, array_2d_uint32, cp.c_int, array_2d_uint32 ]
 ndlib.annotateEntityDense.argtypes = [ array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
@@ -82,7 +83,8 @@ ndlib.locateCube.restype = None
 ndlib.annotateCube.restype = cp.c_int
 ndlib.XYZMorton.restype = npct.ctypes.c_uint64
 ndlib.MortonXYZ.restype = None
-ndlib.recolorCubeOMP.restype = None
+ndlib.recolorCubeOMP32.restype = None
+ndlib.recolorCubeOMP64.restype = None
 ndlib.quicksort.restype = None
 ndlib.shaveCube.restype = None
 ndlib.annotateEntityDense.restype = None
@@ -186,25 +188,21 @@ def MortonXYZ ( morton ):
   cubeoff = np.uint32(cubeoff)
   return [i for i in cubeoff]
 
+
 def recolor_ctype ( cutout, imagemap ):
   """ Annotation recoloring function """
   
   xdim, ydim = cutout.shape
   if not cutout.flags['C_CONTIGUOUS']:
-    cutout = np.ascontiguousarray(cutout,dtype=np.uint32)
+    cutout = np.ascontiguousarray(cutout,dtype=cutout.dtype)
+  
   # Calling the c native function
-  ndlib.recolorCubeOMP ( cutout, cp.c_int(xdim), cp.c_int(ydim), imagemap, np.asarray( rgbColor.rgbcolor,dtype=np.uint32) )
+  if cutout.dtype == np.uint32:
+    ndlib.recolorCubeOMP32 ( cutout, cp.c_int(xdim), cp.c_int(ydim), imagemap, np.asarray( rgbColor.rgbcolor,dtype=np.uint32) )
+  else:
+    ndlib.recolorCubeOMP64 ( cutout, cp.c_int(xdim), cp.c_int(ydim), imagemap, np.asarray( rgbColor.rgbcolor,dtype=np.uint64) )
   return imagemap
 
-def recolor64_ctype ( cutout, imagemap ):
-  """ Annotation recoloring function """
-  
-  xdim, ydim = cutout.shape
-  if not cutout.flags['C_CONTIGUOUS']:
-    cutout = np.ascontiguousarray(cutout,dtype=np.uint32)
-  # Calling the c native function
-  ndlib.recolor64CubeOMP ( cutout, cp.c_int(xdim), cp.c_int(ydim), imagemap, np.asarray( rgbColor.rgbcolor,dtype=np.uint32) )
-  return imagemap
 
 def quicksort ( locs ):
   """ Sort the cube on Morton Id """
