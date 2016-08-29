@@ -15,24 +15,26 @@
 import boto3
 import hashlib
 
-def generateS3Key(channel_name, resolution, zidx):
+from django.conf import settings 
+
+def generateS3Key(project_name, channel_name, resolution, zidx):
   """Generate the key for the supercube"""
 
   hashm = hashlib.md5()
-  hashm.update('{}_{}_{}'.format(channel_name, resolution, zidx))
-  return hashm.hexdigest()
+  hashm.update('{}&{}&{}&{}'.format(project_name, channel_name, resolution, zidx))
+  return '{}&{}&{}&{}'.format(hashm.hexdigest(), project_name, channel_name, resolution, zidx)
 
-def generateS3BucketName(project_name):
+def generateS3BucketName():
   """Return the S3 Bucket Name for the project"""
 
-  return '{}'.format(project_name)
+  return '{}'.format(settings.S3_BUCKET_NAME)
 
-def getSuperCubes(ch, proj, listofidxs, resolution):
-  """Get the SuperCube from the backend"""
+# def getSuperCubes(ch, proj, listofidxs, resolution):
+  # """Get the SuperCube from the backend"""
 
-  for zidx in listofidxs:
-    super_listofidxs.add(generateSuperZindex(zidx, resolution))
+  # for zidx in listofidxs:
+    # super_listofidxs.add(generateSuperZindex(zidx, resolution))
   
-  for super_zidx in super_listofidxs:
-    self.client.get_object(Bucket=generateS3BucketName(proj.getProjectName, ch.getChannelName()), Key=self.generateS3Key(zidx,resolution)).get('Body').read()
-    return breakCubes
+  # for super_zidx in super_listofidxs:
+    # self.client.get_object(Bucket=generateS3BucketName(proj.getProjectName, ch.getChannelName()), Key=self.generateS3Key(zidx,resolution)).get('Body').read()
+    # return breakCubes
