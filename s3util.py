@@ -16,17 +16,17 @@ import boto3
 import hashlib
 from django.conf import settings 
 
-def generateS3Key(project_name, channel_name, resolution, zidx):
+def generateS3Key(project_name, channel_name, resolution, zidx, time=0):
   """Generate the key for the supercube"""
 
   hashm = hashlib.md5()
-  hashm.update('{}&{}&{}&{}'.format(project_name, channel_name, resolution, zidx))
-  return '{}&{}&{}&{}&{}'.format(hashm.hexdigest(), project_name, channel_name, resolution, zidx)
+  hashm.update('{}&{}&{}&{}&{}'.format(project_name, channel_name, resolution, zidx, time))
+  return '{}&{}&{}&{}&{}&{}'.format(hashm.hexdigest(), project_name, channel_name, resolution, zidx, time)
 
 def generateS3BucketName():
   """Return the S3 Bucket Name for the project"""
 
-  return '{}'.format(settings.S3_CUBOID_STORE)
+  return '{}'.format(settings.S3_CUBOID_BUCKET)
 
 # def getSuperCubes(ch, proj, listofidxs, resolution):
   # """Get the SuperCube from the backend"""
