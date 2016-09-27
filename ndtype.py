@@ -14,7 +14,7 @@
 
 import numpy as np
 
-# SuperCube Size
+# SuperCube Size Multiples
 SUPERCUBESIZE = [4,4,4]
 
 # ND Servers
