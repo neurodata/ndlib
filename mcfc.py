@@ -54,8 +54,8 @@ def mcfcPNG (cutout, colors, enhancement=4.0):
     elif colors[i] == 'B':
       combined_cutout +=  np.left_shift(data32,16) 
     else:
-      logger.warning ("Unsupported color requested: {}".format(color[i]))
-      raise NDLIBError ("Unsupported color requested: {}".format(color[i]))
+      logger.warning ("Unsupported color requested: {}".format(colors[i]))
+      raise NDLIBError ("Unsupported color requested: {}".format(colors[i]))
 
   # Set the alpha channel only for nonzero pixels
   # combined_cutout = np.where (combined_cutout > 0, combined_cutout + 0xFF000000, 0)
