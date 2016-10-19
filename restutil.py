@@ -14,7 +14,7 @@
 
 import time
 import urllib2
-
+import requests
 
 def getURL(url):
   """Fetch a URL"""
@@ -84,3 +84,26 @@ def generateURLBlaze(server_name, token_name, channel_list, res_value, range_arg
     return ""
 
   return url
+
+def postJson(url, data):
+
+  try:
+    response = requests.post(url, json=data)
+    return response
+  except requests.HTTPError as e:
+    return e
+
+def getJson(url):
+
+  try:
+    response = requests.get(url)
+    return response
+  except requests.HTTPError as e:
+    return e
+
+def deleteJson(url):
+  try:
+    response = requests.delete(url)
+    return response
+  except requests.HTTPError as e:
+    return e
