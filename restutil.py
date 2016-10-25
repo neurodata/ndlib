@@ -107,3 +107,11 @@ def deleteJson(url):
     return response
   except requests.HTTPError as e:
     return e
+
+def postURL(url, data):
+
+  try:
+    response = requests.post(url, data)
+    return response
+  except requests.HTTPError as e:
+    return e
