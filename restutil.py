@@ -15,17 +15,22 @@
 import time
 import urllib2
 import requests
+try:
+  from django.conf import settings
+  SECRET_TOKEN = settings.SECRET_TOKEN
+except:
+  SECRET_TOKEN = None
 
-def getURL(url):
-  """Fetch a URL"""
+#def getURL(url):
+  #"""Fetch a URL"""
 
-  try:
-    req = urllib2.Request(url)
-    resp = urllib2.urlopen(req)
-    return resp.read()
-  except urllib2.URLError, e:
-    print "Failed URL {}. Error {}".format(url, e)
-    raise e
+  #try:
+    #req = urllib2.Request(url)
+    #resp = urllib2.urlopen(req)
+    #return resp.read()
+  #except urllib2.URLError, e:
+    #print "Failed URL {}. Error {}".format(url, e)
+    #raise e
 
 
 def getURLTimed(url):
@@ -40,14 +45,14 @@ def getURLTimed(url):
     print "Failed", time.time()-start
 
 
-def putURL(url, data):
-  """Post a URL"""
+#def putURL(url, data):
+  #"""Post a URL"""
 
-  try:
-    req = urllib2.Request(url, data)
-    resp = urllib2.urlopen(req)
-  except urllib2.URLError, e:
-    print "Failed URL {}. Error {}".format(url, e)
+  #try:
+    #req = urllib2.Request(url, data)
+    #resp = urllib2.urlopen(req)
+  #except urllib2.URLError, e:
+    #print "Failed URL {}. Error {}".format(url, e)
 
 
 def putURLTimed((url, data)):
@@ -88,30 +93,34 @@ def generateURLBlaze(server_name, token_name, channel_list, res_value, range_arg
 def postJson(url, data):
 
   try:
-    response = requests.post(url, json=data)
+    response = requests.post(url, json=data, headers={'Authorization': 'Token {}'.format(SECRET_TOKEN)} if SECRET_TOKEN else None, verify=False)
     return response
   except requests.HTTPError as e:
     return e
 
 def getJson(url):
+  return getURL(url)
 
+def deleteJson(url):
+  return deleteURL(url)
+
+def getURL(url):
   try:
-    response = requests.get(url)
+    response = requests.get(url, headers={'Authorization': 'Token {}'.format(SECRET_TOKEN)} if SECRET_TOKEN else None, verify=False)
     return response
   except requests.HTTPError as e:
     return e
 
-def deleteJson(url):
+def deleteURL(url):
   try:
-    response = requests.delete(url)
+    response = requests.delete(url, headers={'Authorization': 'Token {}'.format(SECRET_TOKEN)} if SECRET_TOKEN else None, verify=False)
     return response
   except requests.HTTPError as e:
     return e
 
 def postURL(url, data):
-
   try:
-    response = requests.post(url, data)
+    response = requests.post(url, data, headers={'Authorization': 'Token {}'.format(SECRET_TOKEN)} if SECRET_TOKEN else None, verify=False)
     return response
   except requests.HTTPError as e:
     return e
