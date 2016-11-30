@@ -46,7 +46,8 @@ array_2d_float32 = npct.ndpointer(dtype=np.float32, ndim=2, flags='C_CONTIGUOUS'
 # FORMAT: <library_name>,<functiona_name>.argtypes = [ ctype.<argtype> , ctype.<argtype> ....]
 
 ndlib.filterCutout.argtypes = [array_1d_uint32, cp.c_int, array_1d_uint32, cp.c_int]
-ndlib.filterCutoutOMP.argtypes = [array_1d_uint32, cp.c_int, array_1d_uint32, cp.c_int]
+ndlib.filterCutoutOMP32.argtypes = [array_1d_uint32, cp.c_int, array_1d_uint32, cp.c_int]
+ndlib.filterCutoutOMP64.argtypes = [array_1d_uint64, cp.c_int, array_1d_uint64, cp.c_int]
 ndlib.locateCube.argtypes = [ array_2d_uint64, cp.c_int, array_2d_uint32, cp.c_int, cp.POINTER(cp.c_int) ]
 ndlib.annotateCube.argtypes = [ array_1d_uint32, cp.c_int, cp.POINTER(cp.c_int), cp.c_int, array_1d_uint32, array_2d_uint32, cp.c_int, cp.c_char, array_2d_uint32 ]
 ndlib.XYZMorton.argtypes = [ array_1d_uint64 ]
@@ -78,7 +79,8 @@ ndlib.unique.argtypes = [ array_1d_uint32, array_1d_uint32, cp.c_int ]
 # FORMAT: <library_name>.<function_name>.restype = [ ctype.<argtype> ]
 
 ndlib.filterCutout.restype = None
-ndlib.filterCutoutOMP.restype = None
+ndlib.filterCutoutOMP32.restype = None
+ndlib.filterCutoutOMP64.restype = None
 ndlib.locateCube.restype = None
 ndlib.annotateCube.restype = cp.c_int
 ndlib.XYZMorton.restype = npct.ctypes.c_uint64
@@ -109,16 +111,24 @@ ndlib.unique.restype = cp.c_int
 def filter_ctype_OMP ( cutout, filterlist ):
   """Remove all annotations in a cutout that do not match the filterlist using OpenMP"""
   
-  # get a copy of the iterator as a 1-D array
   cutout_shape = cutout.shape
   # Temp Fix
-  cutout = np.asarray(cutout, dtype=np.uint32)
-  cutout = cutout.ravel()
-  filterlist = np.asarray(filterlist, dtype=np.uint32)
-  
-  #Calling the C openmp funtion 
-  ndlib.filterCutoutOMP ( cutout, cp.c_int(len(cutout)), np.sort(filterlist), cp.c_int(len(filterlist)) )
-  
+  if cutout.dtype == np.uint32:
+    # get a copy of the iterator as a 1-D array
+    cutout = np.asarray(cutout, dtype=np.uint32)
+    cutout = cutout.ravel()
+    filterlist = np.asarray(filterlist, dtype=np.uint32)
+    # Calling the C openmp funtion 
+    ndlib.filterCutoutOMP32( cutout, cp.c_int(len(cutout)), np.sort(filterlist), cp.c_int(len(filterlist)) )
+  elif cutout.dtype == np.uint64:
+    # get a copy of the iterator as a 1-D array
+    cutout = np.asarray(cutout, dtype=np.uint64)
+    cutout = cutout.ravel()
+    filterlist = np.asarray(filterlist, dtype=np.uint64)
+    # Calling the C openmp funtion 
+    ndlib.filterCutoutOMP64( cutout, cp.c_int(len(cutout)), np.sort(filterlist), cp.c_int(len(filterlist)) )
+  else:
+    raise
   return cutout.reshape( cutout_shape )
            
 
