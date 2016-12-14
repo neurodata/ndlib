@@ -14,7 +14,9 @@
 
 import boto3
 import hashlib
-from django.conf import settings 
+from django.conf import settings
+from ndingest.settings.settings import Settings
+ndingest_settings = Settings.load()
 
 def generateS3Key(project_name, channel_name, resolution, morton_index, time_index=0):
   """Generate the key for the supercube"""
@@ -26,7 +28,8 @@ def generateS3Key(project_name, channel_name, resolution, morton_index, time_ind
 def generateS3BucketName():
   """Return the S3 Bucket Name for the project"""
 
-  return '{}'.format(settings.S3_CUBOID_BUCKET)
+  # return '{}'.format(settings.S3_CUBOID_BUCKET)
+  return '{}'.format(ndingest_settings.S3_CUBOID_BUCKET)
 
 # def getSuperCubes(ch, proj, listofidxs, resolution):
   # """Get the SuperCube from the backend"""
