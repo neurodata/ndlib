@@ -18,16 +18,8 @@ import numpy as np
 SUPERCUBESIZE = [4,4,4]
 
 # ND Servers
-DSP61 = 'dsp061.pha.jhu.edu'
-DSP62 = 'dsp062.pha.jhu.edu'
-DSP63 = 'dsp063.pha.jhu.edu'
-DSP36 = 'dsp036.pha.jhu.edu'
-DSP37 = 'dsp037.pha.jhu.edu'
-DSP38 = 'dsp038.pha.jhu.edu'
-DSP39 = 'dsp039.pha.jhu.edu'
 LOCALHOST = 'localhost'
-
-ND_servermap = {DSP61:'172.23.253.61', DSP62:'172.23.253.62', DSP63:'172.23.253.63', 'localhost':'localhost'}
+ND_servermap = {'localhost':'localhost'}
 
 # ND_Channel Types, Mapping, Groups
 IMAGE = 'image'
