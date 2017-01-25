@@ -42,14 +42,19 @@ FLOAT32 = 'float32'
 INT8 = 'int8'
 INT16 = 'int16'
 INT32 = 'int32'
+INT64 = 'int64'
 
 DTYPE_uint8 = [ UINT8 ]
 DTYPE_uint16 = [ UINT16 ]
 DTYPE_uint32 = [ UINT32 ]
 DTYPE_uint64 = [ UINT64 ]
+DTYPE_int8 = [ INT8 ]
+DTYPE_int16 = [ INT16 ]
+DTYPE_int32 = [ INT32 ]
+DTYPE_int64 = [ INT64 ]
 DTYPE_float32 = [ FLOAT32 ]
 
-ND_dtypetonp = {UINT8:np.uint8, UINT16:np.uint16, UINT32:np.uint32, UINT64:np.uint64, FLOAT32:np.float32, INT8:np.uint8, INT16:np.uint16, INT32:np.uint32}
+ND_dtypetonp = {UINT8:np.uint8, UINT16:np.uint16, UINT32:np.uint32, UINT64:np.uint64, FLOAT32:np.float32, INT8:np.int8, INT16:np.int16, INT32:np.int32}
 
 # ND KeyValue,MetaData Engines
 MYSQL = 'MySQL'
