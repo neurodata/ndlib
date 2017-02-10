@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import time
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import requests
 try:
   from django.conf import settings
@@ -28,7 +28,7 @@ except:
     #req = urllib2.Request(url)
     #resp = urllib2.urlopen(req)
     #return resp.read()
-  #except urllib2.URLError, e:
+  #except urllib2.URLError as e:
     #print "Failed URL {}. Error {}".format(url, e)
     #raise e
 
@@ -37,13 +37,11 @@ def getURLTimed(url):
   """Fetch a URL"""
 
   try:
-    req = urllib2.Request(url)
+    req = urllib.request.Request(url)
     start = time.time()
-    resp = urllib2.urlopen(req)
-    print time.time()-start
-  except urllib2.URLError, e:
-    print "Failed", time.time()-start
-
+    resp = urllib.request.urlopen(req)
+  except urllib.error.URLError as e:
+    raise
 
 #def putURL(url, data):
   #"""Post a URL"""
@@ -51,29 +49,26 @@ def getURLTimed(url):
   #try:
     #req = urllib2.Request(url, data)
     #resp = urllib2.urlopen(req)
-  #except urllib2.URLError, e:
+  #except urllib2.URLError as e:
     #print "Failed URL {}. Error {}".format(url, e)
 
 
-def putURLTimed((url, data)):
+def putURLTimed(xxx_todo_changeme):
   """Post a URL"""
-
+  (url, data) = xxx_todo_changeme
   try:
-    req = urllib2.Request(url, data)
+    req = urllib.request.Request(url, data)
     start = time.time()
-    resp = urllib2.urlopen(req)
-    print time.time()-start
-  except urllib2.URLError, e:
-    print "Failed", time.time()-start
-
+    resp = urllib.request.urlopen(req)
+  except urllib.error.URLError as e:
+    raise
 
 def generateURLBlosc(server_name, token_name, channel_list, res_value, range_args):
   """Generate a URL for blosc"""
 
   try:
     url = "http://{}/ca/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
-  except Exception, e:
-    print "Error in arguments. {}".format(e)
+  except Exception as e:
     return ""
 
   return url
@@ -84,8 +79,7 @@ def generateURLBlaze(server_name, token_name, channel_list, res_value, range_arg
 
   try:
     url = "http://{}/blaze/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
-  except Exception, e:
-    print "Error in arguments. {}".format(e)
+  except Exception as e:
     return ""
 
   return url

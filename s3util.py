@@ -15,6 +15,7 @@
 import boto3
 import hashlib
 from django.conf import settings
+# RB change to NDsettings (settings object is abstract)
 from ndingest.settings.settings import Settings
 ndingest_settings = Settings.load()
 
