@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import time
-import urllib.request, urllib.error, urllib.parse
+# import urllib.request, urllib.error, urllib.parse
 import requests
 try:
   from django.conf import settings
@@ -33,15 +33,15 @@ except:
     #raise e
 
 
-def getURLTimed(url):
-  """Fetch a URL"""
+# def getURLTimed(url):
+  # """Fetch a URL"""
 
-  try:
-    req = urllib.request.Request(url)
-    start = time.time()
-    resp = urllib.request.urlopen(req)
-  except urllib.error.URLError as e:
-    raise
+  # try:
+    # req = urllib.request.Request(url)
+    # start = time.time()
+    # resp = urllib.request.urlopen(req)
+  # except urllib.error.URLError as e:
+    # raise
 
 #def putURL(url, data):
   #"""Post a URL"""
@@ -53,15 +53,15 @@ def getURLTimed(url):
     #print "Failed URL {}. Error {}".format(url, e)
 
 
-def putURLTimed(xxx_todo_changeme):
-  """Post a URL"""
-  (url, data) = xxx_todo_changeme
-  try:
-    req = urllib.request.Request(url, data)
-    start = time.time()
-    resp = urllib.request.urlopen(req)
-  except urllib.error.URLError as e:
-    raise
+# def putURLTimed(xxx_todo_changeme):
+  # """Post a URL"""
+  # (url, data) = xxx_todo_changeme
+  # try:
+    # req = urllib.request.Request(url, data)
+    # start = time.time()
+    # resp = urllib.request.urlopen(req)
+  # except urllib.error.URLError as e:
+    # raise
 
 def generateURLBlosc(server_name, token_name, channel_list, res_value, range_args):
   """Generate a URL for blosc"""
