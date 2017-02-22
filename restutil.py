@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import time
-# import urllib.request, urllib.error, urllib.parse
 import requests
 try:
   from django.conf import settings
