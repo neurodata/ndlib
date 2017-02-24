@@ -40,6 +40,7 @@ array_4d_uint32 = npct.ndpointer(dtype=np.uint32, ndim=4, flags='C_CONTIGUOUS')
 array_1d_uint64 = npct.ndpointer(dtype=np.uint64, ndim=1, flags='C_CONTIGUOUS')
 array_2d_uint64 = npct.ndpointer(dtype=np.uint64, ndim=2, flags='C_CONTIGUOUS')
 array_2d_float32 = npct.ndpointer(dtype=np.float32, ndim=2, flags='C_CONTIGUOUS')
+array_3d_float32 = npct.ndpointer(dtype=np.float32, ndim=3, flags='C_CONTIGUOUS')
 
 
 # defining the parameter types of the functions in C
@@ -59,7 +60,8 @@ ndlib.shaveCube.argtypes = [ array_1d_uint32, cp.c_int, cp.POINTER(cp.c_int), cp
 ndlib.annotateEntityDense.argtypes = [ array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
 ndlib.shaveDense.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
 ndlib.exceptionDense.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
-ndlib.overwriteDense.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
+ndlib.overwriteDense32.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int) ]
+ndlib.overwriteDenseF32.argtypes = [ array_3d_float32, array_3d_float32, cp.POINTER(cp.c_int) ]
 ndlib.overwriteMerge.argtypes = [ array_4d_uint32, array_4d_uint32, cp.c_int ]
 ndlib.zoomOutData.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
 ndlib.zoomOutDataOMP.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.c_int ]
@@ -92,7 +94,8 @@ ndlib.shaveCube.restype = None
 ndlib.annotateEntityDense.restype = None
 ndlib.shaveDense.restype = None
 ndlib.exceptionDense.restype = None
-ndlib.overwriteDense.restype = None
+ndlib.overwriteDense32.restype = None
+ndlib.overwriteDenseF32.restype = None
 ndlib.overwriteMerge.restype = None
 ndlib.zoomOutData.restype = None
 ndlib.zoomOutDataOMP.restype = None
@@ -281,15 +284,21 @@ def exceptionDense_ctype ( data, annodata ):
 
 def overwriteDense_ctype ( data, annodata ):
   """ Get a dense voxel region and overwrite all the non-zero values """
-
+  
   orginal_dtype = data.dtype
-  data = np.uint32(data)
-  annodata = np.uint32(annodata)
-  #data = np.ascontiguousarray(data,dtype=np.uint32)
-  if not annodata.flags['C_CONTIGUOUS']:
-    annodata = np.ascontiguousarray(annodata,dtype=np.uint32)
   dims = [ i for i in data.shape ]
-  ndlib.overwriteDense ( data, annodata, (cp.c_int * len(dims))(*dims) )
+  # checking for float32 or data otherwise
+  if data.dtype != np.float32:
+    data = np.uint32(data)
+    annodata = np.uint32(annodata)
+    if not annodata.flags['C_CONTIGUOUS']:
+      annodata = np.ascontiguousarray(annodata, dtype=np.uint32)
+    ndlib.overwriteDense32 ( data, annodata, (cp.c_int * len(dims))(*dims) )
+  else:
+    if not annodata.flags['C_CONTIGUOUS']:
+      annodata = np.ascontiguousarray(annodata, dtype=np.float32)
+    ndlib.overwriteDenseF32 ( data, annodata, (cp.c_int * len(dims))(*dims) )
+  
   return ( data.astype(orginal_dtype, copy=False) )
 
 

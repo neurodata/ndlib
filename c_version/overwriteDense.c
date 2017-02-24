@@ -23,7 +23,28 @@
 #include<stdint.h>
 #include<ndlib.h>
 
-void overwriteDense( uint32_t * data, uint32_t * annodata ,int * dims )
+/*Implementation for uint32 data*/
+void overwriteDense32( uint32_t * data, uint32_t * annodata ,int * dims )
+{
+		int i,j,k,index;
+
+    int xdim = dims[0];
+    int ydim = dims[1];
+    int zdim = dims[2];
+    
+		for ( i=0; i<xdim; i++ )
+      for ( j=0; j<ydim; j++ )
+        for ( k=0; k<zdim; k++ )
+        {
+          index = (i*zdim*ydim)+(j*zdim)+(k);
+          if ( annodata[index] !=0 )
+            data[index] = annodata[index];
+        }
+}
+
+
+/*Implementation for float32 data*/
+void overwriteDenseF32( float * data, float * annodata ,int * dims )
 {
 		int i,j,k,index;
 

@@ -62,7 +62,8 @@ void shaveDense ( uint32_t * , uint32_t * , int * );
 void exceptionDense ( uint32_t * , uint32_t * , int * );
 
 // Declaring the exceptionDense function
-void overwriteDense ( uint32_t * , uint32_t * , int * );
+void overwriteDense32 ( uint32_t * , uint32_t * , int * );
+void overwriteDenseF32 ( float * , float * , int * );
 void overwriteMerge ( uint32_t * , uint32_t * , int );
 
 // Declaring the zoomOutData function
