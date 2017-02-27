@@ -17,6 +17,7 @@ import ctypes as cp
 import numpy as np
 import numpy.ctypeslib as npct
 from ndlib import rgbColor
+from operator import sub, div
 
 #
 # Cube Locations using ctypes
@@ -395,6 +396,23 @@ def unique ( data ):
   unique_length = ndlib.unique ( data, unique_array, cp.c_int(len(data)) )
 
   return unique_array[:unique_length]
+
+def boundary_morton(start_xyz, stop_xyz, cube_dim, offset=[0,0,0]):
+  """Returns a list of morton indexs inside the region and one on the boundary"""
+  boundary_list = []
+  interior_list = []
+  start_value = map(div, map(sub, start_xyz, offset), cube_dim)
+  stop_value = map(div, map(sub, stop_xyz, offset), cube_dim)
+  for z in range(start_value[2], stop_value[2], 1):
+    for y in range(start_value[1], stop_value[1], 1):
+      for x in range(start_value[0], stop_value[1], 1):
+          if x in [start_value[0], stop_value[0]-1] or y in [start_value[0], stop_value[1]-1] or z in [start_value[2], stop_value[2]-1]:
+            boundary_list.append(XYZMorton([x, y, z]))
+            # boundary_list.append([x, y, z])
+          else:
+            interior_list.append(XYZMorton([x, y, z]))
+            # interior_list.append([x, y, z])
+  return boundary_list, interior_list
 
 #def annoidIntersect_ctype_OMP(cutout, annoid_list):
   #"""Remove all annotations in a cutout that do not match the filterlist using OpenMP"""
