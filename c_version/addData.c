@@ -20,6 +20,7 @@
  * Naive implementation 
  */
 
+#include<stdio.h>
 #include<stdint.h>
 #include<ndlib.h>
 
@@ -71,7 +72,6 @@ void addDataZSlice ( uint32_t * cube, uint32_t * output, int * offset, int * dim
       }
 }
 
-
 // Add the contribution of the input data to the next level at the given offset in the output cube
 
 void addDataIsotropic ( uint32_t * cube, uint32_t * output, int * offset, int * dims )
@@ -106,3 +106,68 @@ void addDataIsotropic ( uint32_t * cube, uint32_t * output, int * offset, int * 
         output[output_index] = getAnnValue ( cube[index1], cube[index2], cube[index3], cube[index4] );
       }
 }
+
+
+void ZSliceStackCube ( uint32_t * olddata, uint32_t * newdata, int * dims )
+{
+  int i,j,k;
+
+  int zdim = dims[0];
+  int ydim = dims[1];
+  int xdim = dims[2];
+
+  uint32_t value;
+
+  for ( i=0; i<zdim; i++ )
+    for ( j=0; j<ydim; j++ )
+      for ( k=0; k<xdim; k++ )
+      {
+        int index1 = (i*ydim*xdim*4)+(j*4*xdim)+(k*2);
+        int index2 = (i*ydim*xdim*4)+(j*4*xdim)+(k*2+1);
+        int index3 = (i*ydim*xdim*4)+((j*4+1)*xdim)+(k*2);
+        int index4 = (i*ydim*xdim*4)+((j*4+1)*xdim)+(k*2+1);
+        value = getAnnValue ( olddata[index1], olddata[index2], olddata[index3], olddata[index4] );
+
+/        printf("Value %d, xyz %d %d %d indexes %d %d %d %d\n", value, k, j, i, index1, index2, index3, index4);
+        int newdata_index = i*ydim*xdim + j*xdim + k;
+        newdata[newdata_index] = value;
+      }
+}
+
+
+void IsotropicStackCube ( uint32_t * olddata, uint32_t * newdata, int * dims )
+{
+  int i,j,k;
+
+  int zdim = dims[0];
+  int ydim = dims[1];
+  int xdim = dims[2];
+
+  uint32_t value;
+
+  for ( i=0; i<zdim; i++ )
+    for ( j=0; j<ydim; j++ )
+      for ( k=0; k<xdim; k++ )
+      {
+        int index1 = (i*ydim*xdim*8)+(j*4*xdim)+(k*2);
+        int index2 = (i*ydim*xdim*8)+(j*4*xdim)+(k*2+1);
+        int index3 = (i*ydim*xdim*8)+((j*4+1)*xdim)+(k*2);
+        int index4 = (i*ydim*xdim*8)+((j*4+1)*xdim)+(k*2+1);
+        value = getAnnValue ( olddata[index1], olddata[index2], olddata[index3], olddata[index4] );
+
+        // if no annotation in first layer look at next
+        if ( value == 0 ) 
+        {
+          index1 = ((i*2+1)*ydim*xdim*8)+(j*4*xdim)+(k*2);
+          index2 = ((i*2+1)*ydim*xdim*8)+(j*4*xdim)+(k*2+1);
+          index3 = ((i*2+1)*ydim*xdim*8)+((j*2+1)*xdim)+(k*2);
+          index4 = ((i*2+1)*ydim*xdim*8)+((j*2+1)*xdim)+(k*2+1);
+          value = getAnnValue ( olddata[index1], olddata[index2], olddata[index3], olddata[index4] );
+
+        }
+/        printf("Value %d, indexes %d %d %d %d\n", value, index1, index2, index3, index4);
+        int newdata_index = i*ydim*xdim + j*xdim + k;
+        newdata[newdata_index] = value;
+      }
+}
+
