@@ -18,26 +18,18 @@ from django.conf import settings
 # RB change to NDsettings (settings object is abstract)
 from ndingest.settings.settings import Settings
 ndingest_settings = Settings.load()
+from ndingest.util.util import Util
+ndingest_UtilClass = Util.load()
 
-def generateS3Key(project_name, channel_name, resolution, morton_index, time_index=0):
+def generateS3Key(project_name, channel_name, resolution, morton_index, time_index, neariso=False):
   """Generate the key for the supercube"""
-
-  hashm = hashlib.md5()
-  hashm.update('{}&{}&{}&{}&{}'.format(project_name, channel_name, resolution, morton_index, time_index))
-  return '{}&{}&{}&{}&{}&{}'.format(hashm.hexdigest(), project_name, channel_name, resolution, morton_index, time_index)
+  
+  return ndingest_UtilClass.generateCuboidKey(project_name, channel_name, resolution, morton_index, time_index, neariso)
+  # hashm = hashlib.md5()
+  # hashm.update('{}&{}&{}&{}&{}'.format(project_name, channel_name, resolution, morton_index, time_index))
+  # return '{}&{}&{}&{}&{}&{}'.format(hashm.hexdigest(), project_name, channel_name, resolution, morton_index, time_index)
 
 def generateS3BucketName():
   """Return the S3 Bucket Name for the project"""
 
-  # return '{}'.format(settings.S3_CUBOID_BUCKET)
   return '{}'.format(ndingest_settings.S3_CUBOID_BUCKET)
-
-# def getSuperCubes(ch, proj, listofidxs, resolution):
-  # """Get the SuperCube from the backend"""
-
-  # for zidx in listofidxs:
-    # super_listofidxs.add(generateSuperZindex(zidx, resolution))
-  
-  # for super_zidx in super_listofidxs:
-    # self.client.get_object(Bucket=generateS3BucketName(proj.getProjectName, ch.getChannelName()), Key=self.generateS3Key(zidx,resolution)).get('Body').read()
-    # return breakCubes
