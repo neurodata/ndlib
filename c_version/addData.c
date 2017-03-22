@@ -20,12 +20,11 @@
  * Naive implementation 
  */
 
-#include<assert.h>
 #include<stdio.h>
 #include<stdint.h>
 #include<ndlib.h>
 
-// Determine the annotation value at the next level of the hierarchy from a 2x2
+/*Determine the annotation value at the next level of the hierarchy from a 2x2*/
 
 uint32_t getAnnValue ( uint32_t value00, uint32_t value01, uint32_t value10, uint32_t value11 )
 {
@@ -50,7 +49,7 @@ uint32_t getAnnValue ( uint32_t value00, uint32_t value01, uint32_t value10, uin
 }
 
 
-// Add the contribution of the input data to the next level at the given offset in the output cube
+/*Add the contribution of the input data to the next level at the given offset in the output cube*/
 
 void addDataZSlice ( uint32_t * cube, uint32_t * output, int * offset, int * dims )
 {
@@ -73,7 +72,7 @@ void addDataZSlice ( uint32_t * cube, uint32_t * output, int * offset, int * dim
       }
 }
 
-// Add the contribution of the input data to the next level at the given offset in the output cube
+/*Add the contribution of the input data to the next level at the given offset in the output cube*/
 
 void addDataIsotropic ( uint32_t * cube, uint32_t * output, int * offset, int * dims )
 {
@@ -109,6 +108,9 @@ void addDataIsotropic ( uint32_t * cube, uint32_t * output, int * offset, int * 
 }
 
 
+
+/*Zslice propagate function for annotation data*/
+
 void ZSliceStackCube ( uint32_t * olddata, uint32_t * newdata, int * dims )
 {
   int i,j,k;
@@ -135,6 +137,7 @@ void ZSliceStackCube ( uint32_t * olddata, uint32_t * newdata, int * dims )
 }
 
 
+/*Isotropic propagate function for annotation data*/
 
 void IsotropicStackCube ( uint32_t * olddata, uint32_t * newdata, int * dims )
 {
@@ -170,4 +173,3 @@ void IsotropicStackCube ( uint32_t * olddata, uint32_t * newdata, int * dims )
         newdata[newdata_index] = value;
       }
 }
-

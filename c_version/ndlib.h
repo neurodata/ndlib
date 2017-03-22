@@ -88,12 +88,9 @@ void isotropicBuild16 ( uint16_t * , uint16_t * , uint16_t * , int * );
 void isotropicBuild8 ( uint8_t * , uint8_t * , uint8_t * , int * );
 void isotropicBuildF32 ( float * , float * , float * , int * );
 
-// Annotation Stack function
+// Annotation Stack functions for zslice and isotropic data
 void ZSliceStackCube ( uint32_t * , uint32_t *, int * );
-
-// Declaring the addDataZSlice function
 void IsotropicStackCube ( uint32_t * , uint32_t *, int * );
-
 
 // Declaring the addDataZSlice function
 void addDataZslice ( uint32_t * , uint32_t *, int * , int * );
