@@ -77,6 +77,8 @@ ndlib.isotropicBuildF32.argtypes = [ array_2d_float32, array_2d_float32, array_2
 ndlib.addDataZSlice.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.POINTER(cp.c_int) ]
 ndlib.addDataIsotropic.argtypes = [ array_3d_uint32, array_3d_uint32, cp.POINTER(cp.c_int), cp.POINTER(cp.c_int) ]
 ndlib.unique.argtypes = [ array_1d_uint32, array_1d_uint32, cp.c_int ]
+ndlib.ZSliceStackCube.argtypes = [ array_3d_uint32, array_3d_uint32 ]
+ndlib.IsotropicStackCube.argtypes = [ array_3d_uint32, array_3d_uint32 ]
 
 # setting the return type of the function in C
 # FORMAT: <library_name>.<function_name>.restype = [ ctype.<argtype> ]
@@ -110,6 +112,8 @@ ndlib.isotropicBuild32.restype = None
 ndlib.isotropicBuildF32.restype = None
 ndlib.addDataZSlice.restype = None
 ndlib.addDataIsotropic.restype = None
+ndlib.ZSliceStackCube.restype = None
+ndlib.IsotropicStackCube.restype = None
 ndlib.unique.restype = cp.c_int
 
 def filter_ctype_OMP ( cutout, filterlist ):
@@ -375,6 +379,19 @@ def isotropicBuild_ctype ( data1, data2 ):
   else:
     raise 
   return ( newdata )
+
+def IsotropicStackCube_ctype ( olddata, newdata ):
+  """Convert the old cube to new cube of annotations reducing by 2x2x2"""
+
+  dims = [ i for i in newdata.shape ]
+  ndlib.IsotropicStackCube ( olddata, newdata, (cp.c_int * len(dims))(*dims) )
+
+def ZSliceStackCube_ctype ( olddata, newdata ):
+  """Convert the old cube to new cube of annotations reducing by 2x2x1"""
+
+  dims = [ i for i in newdata.shape ]
+ 
+  ndlib.ZSliceStackCube ( olddata, newdata, (cp.c_int * len(dims))(*dims) )
 
 def addDataToIsotropicStack_ctype ( cube, output, offset ):
   """Add the contribution of the input data to the next level at the given offset in the output cube"""
