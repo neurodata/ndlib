@@ -390,6 +390,7 @@ def ZSliceStackCube_ctype ( olddata, newdata ):
   """Convert the old cube to new cube of annotations reducing by 2x2x1"""
 
   dims = [ i for i in newdata.shape ]
+ 
   ndlib.ZSliceStackCube ( olddata, newdata, (cp.c_int * len(dims))(*dims) )
 
 def addDataToIsotropicStack_ctype ( cube, output, offset ):
