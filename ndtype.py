@@ -105,4 +105,5 @@ INGEST_STATUS_COMPLETE = 2
 INGEST_STATUS_DELETED = 3
 
 # neariso phrase
-NEARISO = '/neariso/'
+NEARISO = 'neariso/'
+DIRECT = 'direct/'
