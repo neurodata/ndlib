@@ -20,53 +20,12 @@ try:
 except:
   SECRET_TOKEN = None
 
-#def getURL(url):
-  #"""Fetch a URL"""
-
-  #try:
-    #req = urllib2.Request(url)
-    #resp = urllib2.urlopen(req)
-    #return resp.read()
-  #except urllib2.URLError as e:
-    #print "Failed URL {}. Error {}".format(url, e)
-    #raise e
-
-
-# def getURLTimed(url):
-  # """Fetch a URL"""
-
-  # try:
-    # req = urllib.request.Request(url)
-    # start = time.time()
-    # resp = urllib.request.urlopen(req)
-  # except urllib.error.URLError as e:
-    # raise
-
-#def putURL(url, data):
-  #"""Post a URL"""
-
-  #try:
-    #req = urllib2.Request(url, data)
-    #resp = urllib2.urlopen(req)
-  #except urllib2.URLError as e:
-    #print "Failed URL {}. Error {}".format(url, e)
-
-
-# def putURLTimed(xxx_todo_changeme):
-  # """Post a URL"""
-  # (url, data) = xxx_todo_changeme
-  # try:
-    # req = urllib.request.Request(url, data)
-    # start = time.time()
-    # resp = urllib.request.urlopen(req)
-  # except urllib.error.URLError as e:
-    # raise
 
 def generateURLBlosc(server_name, token_name, channel_list, res_value, range_args):
   """Generate a URL for blosc"""
 
   try:
-    url = "http://{}/ca/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
+    url = "https://{}/sd/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
   except Exception as e:
     return ""
 
@@ -77,7 +36,7 @@ def generateURLBlaze(server_name, token_name, channel_list, res_value, range_arg
   """Generate a URL for blosc"""
 
   try:
-    url = "http://{}/blaze/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
+    url = "https://{}/blaze/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
   except Exception as e:
     return ""
 
