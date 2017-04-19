@@ -14,6 +14,7 @@
 
 import time
 import requests
+from ndlib.ndtype import *
 try:
   from django.conf import settings
   SECRET_TOKEN = settings.SECRET_TOKEN
@@ -21,11 +22,13 @@ except:
   SECRET_TOKEN = None
 
 
-def generateURLBlosc(server_name, token_name, channel_list, res_value, range_args):
+def generateURLBlosc(server_name, token_name, channel_list, res_value, range_args, direct=False):
   """Generate a URL for blosc"""
 
   try:
     url = "https://{}/sd/{}/{}/blosc/{}/{},{}/{},{}/{},{}/".format(server_name, token_name, ','.join(channel_list), res_value, *range_args)
+    if direct:
+      url = url + DIRECT
   except Exception as e:
     return ""
 
