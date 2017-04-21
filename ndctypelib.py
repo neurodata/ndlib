@@ -17,7 +17,7 @@ import ctypes as cp
 import numpy as np
 import numpy.ctypeslib as npct
 from ndlib import rgbColor
-from operator import sub, div
+from operator import sub, floordiv
 
 #
 # Cube Locations using ctypes
@@ -418,8 +418,8 @@ def boundary_morton(start_xyz, stop_xyz, cube_dim, offset=[0,0,0]):
   """Returns a list of morton indexs inside the region and one on the boundary"""
   boundary_list = []
   interior_list = []
-  start_value = map(div, map(sub, start_xyz, offset), cube_dim)
-  stop_value = map(div, map(sub, stop_xyz, offset), cube_dim)
+  start_value = map(floordiv, map(sub, start_xyz, offset), cube_dim)
+  stop_value = map(floordiv, map(sub, stop_xyz, offset), cube_dim)
   for z in range(start_value[2], stop_value[2], 1):
     for y in range(start_value[1], stop_value[1], 1):
       for x in range(start_value[0], stop_value[1], 1):
