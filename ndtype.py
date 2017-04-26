@@ -14,23 +14,16 @@
 
 import numpy as np
 
-# SuperCube Size Multiples
-SUPER_CUBOID_SIZE = [512, 512, 64]
-SUPERCUBESIZE = [4, 4, 4]
-
 # ND Servers
 LOCALHOST = 'localhost'
 ND_servermap = {'localhost':'localhost'}
 
 # ND_Channel Types, Mapping, Groups
-IMAGE = 'image'
 ANNOTATION = 'annotation'
 TIMESERIES = 'timeseries'
-OLDCHANNEL = 'oldchannel'
 
-ND_channeltypes = {0:IMAGE,1:ANNOTATION,2:TIMESERIES,3:OLDCHANNEL}
+ND_channeltypes = {1:ANNOTATION,2:TIMESERIES}
 
-IMAGE_CHANNELS = [ IMAGE, OLDCHANNEL ]
 TIMESERIES_CHANNELS = [ TIMESERIES ]
 ANNOTATION_CHANNELS = [ ANNOTATION ]
 
@@ -59,10 +52,6 @@ ND_dtypetonp = {UINT8:np.uint8, UINT16:np.uint16, UINT32:np.uint32, UINT64:np.ui
 
 # ND KeyValue,MetaData Engines
 MYSQL = 'MySQL'
-CASSANDRA = 'Cassandra'
-RIAK = 'Riak'
-DYNAMODB = 'DynamoDB'
-REDIS = 'Redis'
 
 # ND Version
 ND_VERSION = '1.1'
@@ -98,8 +87,3 @@ S3_FALSE = 0
 FILE_SYSTEM = 'local'
 AMAZON_S3 = 's3'
 
-# Ingest Status Values
-INGEST_STATUS_PREPARING = 0
-INGEST_STATUS_UPLOADING = 1
-INGEST_STATUS_COMPLETE = 2
-INGEST_STATUS_DELETED = 3
