@@ -16,7 +16,7 @@ import numpy as np
 
 # SuperCube Size Multiples
 SUPER_CUBOID_SIZE = [512, 512, 64]
-SUPERCUBESIZE = [1, 1, 1]
+SUPERCUBESIZE = [4, 4, 4]
 
 # ND Servers
 LOCALHOST = 'localhost'
