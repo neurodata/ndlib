@@ -59,6 +59,21 @@ def getJson(url):
 def deleteJson(url):
   return deleteURL(url)
 
+def getSimpleURL(url):
+  try:
+    import urllib2
+    urllib2.urlopen(url)
+  except requests.HTTPError as e:
+    return e
+
+def postSimpleURL((url, data)):
+  try:
+    import urllib2
+    urllib2.urlopen(urllib2.Request(url, data))
+    data = None
+  except requests.HTTPError as e:
+    return e
+
 def getURL(url):
   try:
     response = requests.get(url, headers={'Authorization': 'Token {}'.format(SECRET_TOKEN)} if SECRET_TOKEN else None, verify=False)
